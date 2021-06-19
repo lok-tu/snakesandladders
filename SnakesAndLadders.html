@@ -1,0 +1,399 @@
+<html>
+
+	<body>;
+
+<!---------------------------------------------------------------------------
+
+Author: Lok Tu
+Date: December 19 2017
+Course: ICS3U
+Teacher Name: Danitte Kozai
+Program Name: Snakes and Ladders
+Description: This is a text based snakes and ladder game, with a 2 or 1 
+player mode. It utilises text-fields to describe the current game positions.
+The program start by asking for the user(s) name, then the game begins. Each
+time it is the player's turn they can press the "Roll" button and it will 
+roll a die and add it to their current position. Also, if they land on a 
+snake they will slide down to the bottom, or if they land on a ladder they 
+will climb up the ladder. Players can only go on their turn and win when they
+land on position 90. However, the final roll has to be exact. The game ends
+with a congratulations screen for the winner.
+Notes: Special thanks to Justin Yang, Jaiden Bhoola and Rachel Tran
+
+---------------------------------------------------------------------------->		
+				
+		<form name="SnakesandLadders">;
+			
+			<table>;
+			
+				<!--Start The Two Player Mode and Get the Player's Names-->
+				<tr><td><input type="button" name="startButtonTwoPlayer" value="Start Two Player Game" onclick="
+		
+					var playerOneName = prompt('Enter Player 1 Name');
+					var playerTwoName = prompt('Enter Player 2 Name');
+	
+					SnakesandLadders.playerOneName.value = playerOneName;
+					SnakesandLadders.playerTwoName.value = playerTwoName;
+		
+				"></td></tr>;
+				
+				<!--Text Field Containing The Current Turn Number-->
+				<tr><td>Turn Number</td></tr>;
+				<tr><td><input type="text" name="turnNumber" value="1"></td></tr>;
+				
+				<!--Text Field Containing Player 1's Name-->
+				<tr><td>Player 1's Name</td></tr>;                     						
+				
+				<tr><td><input type="text" name="playerOneName" value=""></td></tr>	 	;					
+					
+					<!--Button That Rolls The Dice for Player 1-->
+					<tr><td><input type="button" name="playerOneRoll" value="Roll" onclick="
+					
+						//Declare Variables
+						var playerOneName = SnakesandLadders.playerOneName.value;
+						var playerOnePosition = parseInt(SnakesandLadders.playerOnePosition.value);
+						var diceRoll = Math.ceil(Math.random()* 6);
+						var turnNumber = parseInt(SnakesandLadders.turnNumber.value);
+						var snakeBottom = [3,15,33,53,58,67,71,36];
+						var snakeTop = [14,20,39,66,69,79,84,88];
+						var ladderBottom = [6,24,30,49,82];
+						var ladderTop = [17,26,44,62,86];
+						
+							//Add a Random Number From 1-6 to the Players Position
+							playerOnePosition = playerOnePosition + diceRoll;
+							
+								//Check to See if Player Lands on a Snake
+								for(var i=0;i<=snakeTop.length;i++){
+								
+									if(playerOnePosition == snakeTop[i]){
+										
+										playerOnePosition = snakeBottom[i];
+										alert(playerOneName + ' Slid Down a Snake!');
+										
+									}
+								}
+								
+								//Check to See if Player Lands on a Ladder
+								for(var i=0;i<=ladderBottom.length;i++){
+								
+									if(playerOnePosition == ladderBottom[i]){
+									
+										playerOnePosition = ladderTop[i];
+										alert(playerOneName + ' Climbed Up a Ladder!');
+								
+									}
+								}
+									
+									//Update the Players Position and Increase the Turn Number
+									if(playerOnePosition < 90){
+									
+										if(turnNumber%2 == 1){
+								
+											SnakesandLadders.playerOnePosition.value = playerOnePosition;
+											turnNumber = turnNumber + 1;
+											SnakesandLadders.turnNumber.value = turnNumber;				
+									
+										}
+								
+									}
+						
+								//If Player Position is Past 90, Go Back to Previous Position
+								if(playerOnePosition > 90){
+								
+									playerOnePosition = playerOnePosition - diceRoll;
+									SnakesandLadders.playerOnePosition.value = playerOnePosition;
+									alert(playerOneName + ' Did Not Roll to a Perfect 90! Try Again!');
+									turnNumber = turnNumber + 1;
+									SnakesandLadders.turnNumber.value = turnNumber;			
+								
+								}
+								
+								//Displays the Winner
+								else if(playerOnePosition == 90){
+								
+									document.write(SnakesandLadders.playerOneName.value + ' Won the Game!');
+								
+								}					
+					
+					"></td></tr>;
+				
+				<!--Text Field Containing Player 1's Position-->
+				<tr><td>Player 1's Position</td></tr>;
+				
+				<tr><td><input type="text" name="playerOnePosition" value="0"></td></tr>;	
+																
+				<tr><td></td></tr>;
+				<tr><td></td></tr>;
+				<tr><td></td></tr>;
+				
+				<!--Text Field Containing Player 2's Name-->
+				<tr><td>Player 2's Name</td></tr>;	                      						
+				
+				<tr><td><input type="text" name="playerTwoName" value=""></td></tr>; 						
+					
+					<!--Button That Rolls The Dice for Player 2-->
+					<tr><td><input type="button" name="playerTwoRoll" value="Roll" onclick="
+					
+						//Declare Variables
+						var playerTwoName = SnakesandLadders.playerTwoName.value;
+						var playerTwoPosition = parseInt(SnakesandLadders.playerTwoPosition.value);
+						var diceRoll = Math.ceil(Math.random()* 6);
+						var turnNumber = parseInt(SnakesandLadders.turnNumber.value);	
+						var snakeBottom = [3,15,33,53,58,67,71,36];
+						var snakeTop = [14,20,39,66,69,79,84,88];
+						var ladderBottom = [6,24,30,49,82];
+						var ladderTop = [17,26,44,62,86];				
+						
+							//Add a Random Number From 1-6 to the Players Position
+							playerTwoPosition = playerTwoPosition + diceRoll;
+							
+								//Check to See if Player Lands on a Snake
+								for(var i=0;i<=snakeTop.length;i++){
+								
+									if(playerTwoPosition == snakeTop[i]){
+										
+										playerTwoPosition = snakeBottom[i];
+										alert(playerTwoName + ' Slid Down a Snake!');
+									
+									}
+								}
+								
+								//Check to See if Player Lands on a Ladder
+								for(var i=0;i<=ladderBottom.length;i++){
+								
+									if(playerTwoPosition == ladderBottom[i]){
+									
+										playerTwoPosition = ladderTop[i];
+										alert(playerTwoName + ' Climbed Up a Ladder!');
+										
+									}
+								}								
+								
+								//Update the Players Position and Increase the Turn Number
+								if(playerTwoPosition < 90){
+								
+									if(turnNumber%2 == 0){
+							
+							
+										SnakesandLadders.playerTwoPosition.value = playerTwoPosition;
+										turnNumber = turnNumber + 1;
+										SnakesandLadders.turnNumber.value = turnNumber;
+								
+									}
+							
+								}
+							
+							//If Player Position is Past 90, Go Back to Previous Position
+							if(playerTwoPosition > 90){
+							
+								playerTwoPosition = playerTwoPosition - diceRoll;
+								SnakesandLadders.playerTwoPosition.value = playerTwoPosition;
+								alert(playerTwoName + ' Did Not Roll to a Perfect 90! Try Again!');
+								turnNumber = turnNumber + 1;
+								SnakesandLadders.turnNumber.value = turnNumber;
+							
+							}
+							
+							//Displays the Winner
+							else if(playerTwoPosition == 90){
+							
+								document.write(SnakesandLadders.playerTwoName.value + ' Won the Game!');
+							
+							}
+					
+					"></td></tr>;	
+				
+				<!--Text Field Containing Player 2's Position-->
+				<tr><td>Player 2's Position</td></tr>;	
+				
+				<tr><td><input type="text" name="playerTwoPosition" value="0"></td></tr>;	
+											
+			</table>;
+		
+		</form>;
+			
+			<hr>;
+		
+		<form name="SnakesandLaddersComp">;
+		
+			<table>;
+			
+				<!--Start The One Player Mode and Get the Player's Name-->
+				<tr><td><input type="button" name="startButtonOnePlayer" value="Start One Player Game" onclick="
+		
+					var playerOneName = prompt('Enter Player 1 Name')
+	
+					SnakesandLaddersComp.playerOneName.value = playerOneName;
+		
+				"></td></tr>;
+				
+				<!--Text Field Containing The Current Turn Number-->
+				<tr><td>Turn Number</td></tr>;
+				<tr><td><input type="text" name="turnNumber" value="1"></td></tr>;
+				
+				<!--Text Field Containing Player 1's Name-->
+				<tr><td>Player 1's Name</td></tr>;				                      						
+				
+				<tr><td><input type="text" name="playerOneName" value=""></td></tr>;	 						
+					
+					<!--Button That Rolls The Dice for Player 1-->
+					<tr><td><input type="button" name="playerOneRoll" value="Roll" onclick="
+					
+						//Declare Variables
+						var playerOneName = SnakesandLaddersComp.playerOneName.value;
+						var playerOnePosition = parseInt(SnakesandLaddersComp.playerOnePosition.value);
+						var diceRoll = Math.ceil(Math.random()* 6);
+						var turnNumber = parseInt(SnakesandLaddersComp.turnNumber.value);	
+						var snakeBottom = [3,15,33,53,58,67,71,36];
+						var snakeTop = [14,20,39,66,69,79,84,88];
+						var ladderBottom = [6,24,30,49,82];
+						var ladderTop = [17,26,44,62,86];
+						
+							//Add a Random Number From 1-6 to the Players Position
+							playerOnePosition = playerOnePosition + diceRoll;
+							
+								//Check to See if Player Lands on a Snake
+								for(var i=0;i<=snakeTop.length;i++){
+								
+									if(playerOnePosition == snakeTop[i]){
+										
+										playerOnePosition = snakeBottom[i];
+										alert(playerOneName + ' Slid Down a Snake!');
+										
+									}
+								}
+								
+								//Check to See if Player Lands on a Ladder
+								for(var i=0;i<=ladderBottom.length;i++){
+								
+									if(playerOnePosition == ladderBottom[i]){
+									
+										playerOnePosition = ladderTop[i];
+										alert(playerOneName + ' Climbed Up a Ladder!');
+								
+									}
+								}
+									
+									//Update the Players Position and Increase the Turn Number
+									if(playerOnePosition < 90){
+									
+										if(turnNumber%2 == 1){
+								
+											SnakesandLaddersComp.playerOnePosition.value = playerOnePosition;
+											turnNumber = turnNumber + 1;
+											SnakesandLaddersComp.turnNumber.value = turnNumber;								
+									
+										}
+								
+									}
+						
+								//If Player Position is Past 90, Go Back to Previous Position
+								if(playerOnePosition > 90){
+								
+									playerOnePosition = playerOnePosition - diceRoll;
+									SnakesandLaddersComp.playerOnePosition.value = playerOnePosition;
+									alert(playerOneName + ' Did Not Roll to a Perfect 90! Try Again!');
+									turnNumber = turnNumber + 1;
+									SnakesandLaddersComp.turnNumber.value = turnNumber;								
+								
+								}
+								
+								//Displays the Winner
+								else if(playerOnePosition == 90){
+								
+									document.write(SnakesandLaddersComp.playerOneName.value + ' Won the Game!');
+								
+								}					
+					
+					"></td></tr>;	
+				
+				<!--Text Field Containing Player 1's Position-->
+				<tr><td>Player 1's Position</td></tr>;	
+				
+				<tr><td><input type="text" name="playerOnePosition" value="0"></td></tr>;			
+				
+				<!--Button That Rolls The Dice for Computer-->
+				<tr><td><input type="button" name="computerRoll" value="Computer Roll" onclick="
+					
+						//Declare Variables
+						var computerPosition = parseInt(SnakesandLaddersComp.computerPosition.value);
+						var diceRoll = Math.ceil(Math.random()* 6);
+						var turnNumber = parseInt(SnakesandLaddersComp.turnNumber.value);		
+						var snakeBottom = [3,15,33,53,58,67,71,36];
+						var snakeTop = [14,20,39,66,69,79,84,88];
+						var ladderBottom = [6,24,30,49,82];
+						var ladderTop = [17,26,44,62,86];
+						
+							//Add a Random Number From 1-6 to the Computers Position
+							computerPosition = computerPosition + diceRoll;
+							
+								//Check to See if Player Lands on a Snake
+								for(var i=0;i<=snakeTop.length;i++){
+								
+									if(computerPosition == snakeTop[i]){
+										
+										computerPosition = snakeBottom[i];
+										alert('The Computer Slid Down a Snake!');
+										
+									}
+								}
+								
+								//Check to See if Computer Lands on a Ladder
+								for(var i=0;i<=ladderBottom.length;i++){
+								
+									if(computerPosition == ladderBottom[i]){
+									
+										computerPosition = ladderTop[i];
+										alert('The Computer Climbed Up a Ladder!');
+								
+									}
+								}
+									
+									//Update the Computers Position and Increase the Turn Number
+									if(computerPosition < 90){
+									
+										while(turnNumber%2 == 0){
+								
+											SnakesandLaddersComp.computerPosition.value = computerPosition;
+											turnNumber = turnNumber + 1;
+											SnakesandLaddersComp.turnNumber.value = turnNumber;								
+									
+										}
+								
+									}
+						
+								//If Computer Position is Past 90, Go Back to Previous Position
+								if(computerPosition > 90){
+								
+									computerPosition = computerPosition - diceRoll;
+									SnakesandLaddersComp.computerPosition.value = computerPosition;
+									alert('The Computer Did Not Roll to a Perfect 90! Try Again!');
+									turnNumber = turnNumber + 1;
+									SnakesandLaddersComp.turnNumber.value = turnNumber;								
+								
+								}
+								
+								//Displays the Winner
+								else if(computerPosition == 90){
+								
+									document.write('The Computer Won the Game!');
+								
+								}					
+					
+					"></td></tr>;
+				
+				<!--Text Field Containing Computer's Position-->
+				<tr><td>Computer's Position</td></tr>;
+				
+				<tr><td><input type="text" name="computerPosition" value="0"></td></tr>;
+				
+			</table>;
+		
+		</form>;
+
+	</body>;
+
+</html>
+
+
+
